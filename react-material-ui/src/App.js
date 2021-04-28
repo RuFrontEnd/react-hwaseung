@@ -17,15 +17,17 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import shadows from "@material-ui/core/styles/shadows";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
+import Avatar from "@material-ui/core/Avatar";
+import facebook from "static/facebook.png";
+import line from "static/line.png";
+import hamburger from "static/hamburger.png";
 
 const theme = createMuiTheme({
   breakpoints: {
@@ -90,6 +92,30 @@ const useStyles = makeStyles((theme) => ({
   imgContainer: {
     color: "white",
   },
+  navBarWarp: {
+    marginBottom: 60,
+    paddingRight: 130,
+    paddingLeft: 130,
+    paddingTop: 18,
+    paddingBottom: 6,
+    ["@media (max-width:1440px)"]: {
+      paddingRight: 25,
+      paddingLeft: 25,
+    },
+  },
+  OperatingContainer: {
+    ["@media (max-width:991px)"]: {
+      display: "none",
+    },
+  },
+  hamburgerContainer: {
+    display: "none",
+    ["@media (max-width:991px)"]: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+    },
+  },
   card: {
     maxWidth: 220,
     // maxHeight: 220,
@@ -111,6 +137,9 @@ const useStyles = makeStyles((theme) => ({
   },
   articleContainer: {
     backgroundColor: "pink",
+    height: "100%",
+    padding: "25px 25px",
+    boxSizing: "border-box",
   },
   articleWarp: {
     width: "50%",
@@ -130,8 +159,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tableContainer: {
     marginBottom: "48px",
-    paddingRight: "80px",
-    paddingLeft: "80px",
+    padding: "54px 80px",
     ["@media (max-width:1440px)"]: {
       paddingRight: "25px",
       paddingLeft: "25px",
@@ -140,6 +168,23 @@ const useStyles = makeStyles((theme) => ({
   footer: {
     marginTop: "48px",
     padding: "40px 0px",
+  },
+  avatar: {
+    width: 30,
+    height: 30,
+    marginRight: 12,
+  },
+  navigationContainer: {
+    marginTop: 16,
+  },
+  logIn: {
+    padding: "5px 15px",
+    backgroundColor: "black",
+    color: "white",
+    fontSize: 14,
+  },
+  articleTitle: {
+    fontSize: 50,
   },
 }));
 
@@ -187,22 +232,29 @@ function App() {
             display="flex"
             justifyContent="space-between"
             bgcolor="#EEEEEE"
-            style={{
-              marginBottom: "60px",
-              paddingRight: "130px",
-              paddingLeft: "130px",
-              paddingTop: "18px",
-              paddingBottom: "6px",
-            }}
+            className={classes.navBarWarp}
           >
             <Box style={{ fontSize: "80px" }}>LOGO</Box>
-            <Box style={{ paddingTop: "46px" }}>
-              <Box display="flex" justifyContent="flex-end">
-                <Box>FB</Box>
-                <Box>LN</Box>
-                <Box>登入</Box>
+            <Box
+              className={classes.OperatingContainer}
+              style={{ paddingTop: "30px" }}
+            >
+              <Box display="flex" justifyContent="flex-end" alignItems="center">
+                <Avatar
+                  className={classes.avatar}
+                  variant="square"
+                  src={facebook}
+                ></Avatar>
+                <Box>
+                  <Avatar
+                    className={classes.avatar}
+                    variant="square"
+                    src={line}
+                  ></Avatar>
+                </Box>
+                <Box className={classes.logIn}>登入</Box>
               </Box>
-              <Box display="flex">
+              <Box className={classes.navigationContainer} display="flex">
                 <Box
                   style={{ padding: "0px 20px", borderLeft: "1px solid black" }}
                 >
@@ -233,6 +285,13 @@ function App() {
                   Q&A活動
                 </Box>
               </Box>
+            </Box>
+            <Box className={classes.hamburgerContainer}>
+              <Avatar
+                className={classes.avatar}
+                variant="square"
+                src={hamburger}
+              ></Avatar>
             </Box>
           </Box>
         </Container>
@@ -425,7 +484,7 @@ function App() {
                     boxSizing: "border-box",
                   }}
                 >
-                  <Typography>標題</Typography>
+                  <Typography className={classes.articleTitle}>標題</Typography>
                   <Typography>
                     介紹介紹介紹介紹介紹介紹介紹介紹
                     介紹介紹介紹介紹介紹介紹介紹介紹
