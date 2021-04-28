@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import { useEffect, useState } from "react";
 import "./App.css";
 import {
@@ -31,11 +30,6 @@ import hamburger from "static/hamburger.png";
 
 const theme = createMuiTheme({
   breakpoints: {
-    // Define custom breakpoint values.
-    // These will apply to Material-UI components that use responsive
-    // breakpoints, such as `Grid` and `Hidden`. You can also use the
-    // theme breakpoint functions `up`, `down`, and `between` to create
-    // media queries for these breakpoints
     values: {
       xs: 576,
       sm: 768,
@@ -44,7 +38,7 @@ const theme = createMuiTheme({
       xl: 1920,
     },
   },
-});
+}); // customized breakpoints
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -52,26 +46,26 @@ const StyledTableCell = withStyles((theme) => ({
     color: theme.palette.common.white,
   },
   body: {
-    fontSize: 14,
+    fontSize: 24,
   },
-}))(TableCell);
+}))(TableCell); // table cell style
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
     backgroundColor: "#EEEEEE",
   },
-}))(TableRow);
+}))(TableRow); // table  row style
 
 function createData(name, calories, fat, carbs, protein) {
   return { name, calories, fat, carbs, protein };
-}
+} // table item name
 
 const rows = [
   createData("ID", "日期", "事件", "刪除"),
   createData("01", "08/14", "文案一", <Button variant="outlined">按鈕</Button>),
   createData("02", "02/14", "文案二", <Button variant="outlined">按鈕</Button>),
   createData("03", "01/12", "文案三", <Button variant="outlined">按鈕</Button>),
-];
+]; // table content
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,14 +77,12 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     color: theme.palette.text.secondary,
   },
-  circleContainer: {
-    border: "1px solid black",
+  navBarContainer: {
+    paddingRight: "0px",
+    paddingLeft: "0px",
   },
-  table: {
-    minWidth: 700,
-  },
-  imgContainer: {
-    color: "white",
+  logo: {
+    fontSize: "80px",
   },
   navBarWarp: {
     marginBottom: 60,
@@ -104,9 +96,33 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   OperatingContainer: {
+    paddingTop: "30px",
     ["@media (max-width:991px)"]: {
       display: "none",
     },
+  },
+  avatar: {
+    width: 30,
+    height: 30,
+    marginRight: 12,
+  },
+  logIn: {
+    padding: "5px 15px",
+    backgroundColor: "black",
+    color: "white",
+    fontSize: 14,
+  },
+  navigationContainer: {
+    marginTop: 16,
+  },
+  navigation: {
+    padding: "0px 20px",
+    borderLeft: "1px solid black",
+  },
+  navigationLast: {
+    padding: "0px 20px",
+    borderLeft: "1px solid black",
+    borderRight: "1px solid black",
   },
   hamburgerContainer: {
     display: "none",
@@ -116,14 +132,42 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "center",
     },
   },
+  circleContainer: {
+    marginBottom: "60px",
+  },
+  circleItem: {
+    border: "1px solid black",
+    borderRadius: "50%",
+  },
+  tableContainer: {
+    marginBottom: "48px",
+    padding: "54px 80px",
+    ["@media (max-width:1440px)"]: {
+      paddingRight: "25px",
+      paddingLeft: "25px",
+    },
+  },
+  table: {
+    minWidth: 700,
+  },
+  firstRow: {
+    width: 58,
+  },
+  secondRow: {
+    width: 133,
+  },
+  thirdRow: {
+    width: 100,
+    paddingRight: 800,
+  },
   card: {
     maxWidth: 220,
-    // maxHeight: 220,
     marginTop: 30,
     marginBottom: 30,
     marginLeft: 27,
     marginRight: 27,
   },
+
   introductionContainer: {
     paddingRight: "50px",
     paddingLeft: "110px",
@@ -141,54 +185,18 @@ const useStyles = makeStyles((theme) => ({
     padding: "25px 25px",
     boxSizing: "border-box",
   },
-  articleWarp: {
-    width: "50%",
-    paddingTop: 40,
-    paddingBottom: 40,
-    paddingRight: 40,
-    paddingLeft: 40,
-    textAlign: "left",
-    backgroundColor: "Lime",
-    [theme.breakpoints.down("sm")]: {
-      backgroundColor: "purple",
-    },
-  },
   articleTitle: {
     fontSize: 50,
     marginBottom: 20,
-  },
-  tableContainer: {
-    marginBottom: "48px",
-    padding: "54px 80px",
-    ["@media (max-width:1440px)"]: {
-      paddingRight: "25px",
-      paddingLeft: "25px",
-    },
   },
   footer: {
     marginTop: "48px",
     padding: "40px 0px",
   },
-  avatar: {
-    width: 30,
-    height: 30,
-    marginRight: 12,
-  },
-  navigationContainer: {
-    marginTop: 16,
-  },
-  logIn: {
-    padding: "5px 15px",
-    backgroundColor: "black",
-    color: "white",
-    fontSize: 14,
-  },
-  articleTitle: {
-    fontSize: 50,
-  },
 }));
 
 function App() {
+  const classes = useStyles();
   const [data, setData] = useState([]);
   const getData = () => {
     axios
@@ -205,9 +213,7 @@ function App() {
         }));
         setData(_data);
       });
-  };
-
-  const classes = useStyles();
+  }; // fetch data
 
   useEffect(() => {
     getData();
@@ -220,13 +226,7 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <Box className={classes.root}>
-        <Container
-          maxWidth="xl"
-          style={{
-            paddingRight: "0px",
-            paddingLeft: "0px",
-          }}
-        >
+        <Container maxWidth="xl" className={classes.navBarContainer}>
           <Box
             w={1}
             display="flex"
@@ -234,11 +234,8 @@ function App() {
             bgcolor="#EEEEEE"
             className={classes.navBarWarp}
           >
-            <Box style={{ fontSize: "80px" }}>LOGO</Box>
-            <Box
-              className={classes.OperatingContainer}
-              style={{ paddingTop: "30px" }}
-            >
+            <Box className={classes.logo}>LOGO</Box>
+            <Box className={classes.OperatingContainer}>
               <Box display="flex" justifyContent="flex-end" alignItems="center">
                 <Avatar
                   className={classes.avatar}
@@ -255,35 +252,11 @@ function App() {
                 <Box className={classes.logIn}>登入</Box>
               </Box>
               <Box className={classes.navigationContainer} display="flex">
-                <Box
-                  style={{ padding: "0px 20px", borderLeft: "1px solid black" }}
-                >
-                  首頁
-                </Box>
-                <Box
-                  style={{ padding: "0px 20px", borderLeft: "1px solid black" }}
-                >
-                  關於我們
-                </Box>
-                <Box
-                  style={{ padding: "0px 20px", borderLeft: "1px solid black" }}
-                >
-                  最新消息
-                </Box>
-                <Box
-                  style={{ padding: "0px 20px", borderLeft: "1px solid black" }}
-                >
-                  服務項目
-                </Box>
-                <Box
-                  style={{
-                    padding: "0px 20px",
-                    borderLeft: "1px solid black",
-                    borderRight: "1px solid black",
-                  }}
-                >
-                  Q&A活動
-                </Box>
+                <Box className={classes.navigation}>首頁</Box>
+                <Box className={classes.navigation}>關於我們</Box>
+                <Box className={classes.navigation}>最新消息</Box>
+                <Box className={classes.navigation}>服務項目</Box>
+                <Box className={classes.navigationLast}>Q&A活動</Box>
               </Box>
             </Box>
             <Box className={classes.hamburgerContainer}>
@@ -296,22 +269,20 @@ function App() {
           </Box>
         </Container>
         <Container maxWidth="lg">
-          <Grid container spacing={3} style={{ marginBottom: "60px" }}>
+          <Grid container spacing={3} className={classes.circleContainer}>
             <Grid item xl={3} lg={3} md={4} sm={6} xs={12}>
               <Box
                 className={classes.paper}
-                style={{ display: "flex", justifyContent: "center" }}
+                display="flex"
+                justifyContent="center"
               >
                 <Box
                   width={230}
                   height={230}
-                  style={{
-                    border: "1px solid black",
-                    borderRadius: "50%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  className={classes.circleItem}
                 >
                   項目一
                 </Box>
@@ -320,18 +291,16 @@ function App() {
             <Grid item xl={3} lg={3} md={4} sm={6} xs={12}>
               <Box
                 className={classes.paper}
-                style={{ display: "flex", justifyContent: "center" }}
+                display="flex"
+                justifyContent="center"
               >
                 <Box
                   width={230}
                   height={230}
-                  style={{
-                    border: "1px solid black",
-                    borderRadius: "50%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  className={classes.circleItem}
                 >
                   項目二
                 </Box>
@@ -340,18 +309,16 @@ function App() {
             <Grid item xl={3} lg={3} md={4} sm={6} xs={12}>
               <Box
                 className={classes.paper}
-                style={{ display: "flex", justifyContent: "center" }}
+                display="flex"
+                justifyContent="center"
               >
                 <Box
                   width={230}
                   height={230}
-                  style={{
-                    border: "1px solid black",
-                    borderRadius: "50%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  className={classes.circleItem}
                 >
                   項目三
                 </Box>
@@ -360,18 +327,16 @@ function App() {
             <Grid item xl={3} lg={3} md={4} sm={6} xs={12}>
               <Box
                 className={classes.paper}
-                style={{ display: "flex", justifyContent: "center" }}
+                display="flex"
+                justifyContent="center"
               >
                 <Box
                   width={230}
                   height={230}
-                  style={{
-                    border: "1px solid black",
-                    borderRadius: "50%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  className={classes.circleItem}
                 >
                   項目四
                 </Box>
@@ -405,16 +370,19 @@ function App() {
                           <StyledTableCell
                             component="th"
                             scope="row"
-                            style={{ width: 58 }}
+                            className={classes.firstRow}
                           >
                             {row.name}
                           </StyledTableCell>
-                          <StyledTableCell align="left" style={{ width: 133 }}>
+                          <StyledTableCell
+                            align="left"
+                            className={classes.secondRow}
+                          >
                             {row.calories}
                           </StyledTableCell>
                           <StyledTableCell
                             align="left"
-                            style={{ width: 100, paddingRight: 800 }}
+                            className={classes.thirdRow}
                           >
                             {row.fat}
                           </StyledTableCell>
@@ -470,7 +438,8 @@ function App() {
             <Grid item xl={4} lg={4} md={5} sm={12} xs={12}>
               <Box
                 className={classes.articleContainer}
-                style={{ display: "flex", justifyContent: "center" }}
+                display="flex"
+                justifyContent="center"
               >
                 <Box
                   style={{
