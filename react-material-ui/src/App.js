@@ -1,10 +1,23 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { makeStyles } from "@material-ui/core/styles";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import {
+  withStyles,
+  makeStyles,
+  createMuiTheme,
+  MuiThemeProvider,
+} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import shadows from "@material-ui/core/styles/shadows";
+import Button from "@material-ui/core/Button";
 
 const theme = createMuiTheme({
   breakpoints: {
@@ -14,14 +27,41 @@ const theme = createMuiTheme({
     // theme breakpoint functions `up`, `down`, and `between` to create
     // media queries for these breakpoints
     values: {
-      xs: 576,
-      sm: 768,
+      xs: 768,
+      sm: 991,
       md: 1280,
       lg: 1440,
       xl: 1920,
     },
   },
 });
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    backgroundColor: "#EEEEEE",
+  },
+}))(TableRow);
+
+function createData(name, calories, fat, carbs, protein) {
+  return { name, calories, fat, carbs, protein };
+}
+
+const rows = [
+  createData("ID", "日期", "事件", "刪除"),
+  createData("01", "08/14", "文案一", <Button variant="outlined">按鈕</Button>),
+  createData("02", "02/14", "文案二", <Button variant="outlined">按鈕</Button>),
+  createData("03", "01/12", "文案三", <Button variant="outlined">按鈕</Button>),
+];
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,40 +76,92 @@ const useStyles = makeStyles((theme) => ({
   circleContainer: {
     border: "1px solid black",
   },
+  table: {
+    minWidth: 700,
+  },
+  imgContainer: {
+    color: "white",
+  },
 }));
 
 function App() {
   const classes = useStyles();
   return (
     <MuiThemeProvider theme={theme}>
-      <div className={classes.root}>
-        <div
+      <Box className={classes.root}>
+        <Container
+          maxWidth="xl"
           style={{
-            width: "100%",
-            backgroundColor: "pink",
-            marginBottom: "60px",
+            paddingRight: "0px",
+            paddingLeft: "0px",
           }}
         >
-          header
-        </div>
-        <Container
-          maxWidth="lg"
-          // style={{
-          //   paddingRight: "65px",
-          //   paddingLeft: "65px",
-          // }}
-        >
+          <Box
+            w={1}
+            display="flex"
+            justifyContent="space-between"
+            bgcolor="#EEEEEE"
+            style={{
+              marginBottom: "60px",
+              paddingRight: "130px",
+              paddingLeft: "130px",
+              paddingTop: "18px",
+              paddingBottom: "6px",
+            }}
+          >
+            <Box style={{ fontSize: "80px" }}>LOGO</Box>
+            <Box style={{ paddingTop: "46px" }}>
+              <Box display="flex" justifyContent="flex-end">
+                <Box>FB</Box>
+                <Box>LN</Box>
+                <Box>登入</Box>
+              </Box>
+              <Box display="flex">
+                <Box
+                  style={{ padding: "0px 20px", borderLeft: "1px solid black" }}
+                >
+                  首頁
+                </Box>
+                <Box
+                  style={{ padding: "0px 20px", borderLeft: "1px solid black" }}
+                >
+                  關於我們
+                </Box>
+                <Box
+                  style={{ padding: "0px 20px", borderLeft: "1px solid black" }}
+                >
+                  最新消息
+                </Box>
+                <Box
+                  style={{ padding: "0px 20px", borderLeft: "1px solid black" }}
+                >
+                  服務項目
+                </Box>
+                <Box
+                  style={{
+                    padding: "0px 20px",
+                    borderLeft: "1px solid black",
+                    borderRight: "1px solid black",
+                  }}
+                >
+                  Q&A活動
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        </Container>
+        <Container maxWidth="lg">
           <Grid container spacing={3} style={{ marginBottom: "60px" }}>
             <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
-              <div
+              <Box
                 className={classes.paper}
                 style={{ display: "flex", justifyContent: "center" }}
               >
-                <div
+                <Box
+                  width={230}
+                  height={230}
                   style={{
                     border: "1px solid black",
-                    width: "230px",
-                    height: "230px",
                     borderRadius: "50%",
                     display: "flex",
                     justifyContent: "center",
@@ -77,19 +169,19 @@ function App() {
                   }}
                 >
                   項目一
-                </div>
-              </div>
+                </Box>
+              </Box>
             </Grid>
             <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
-              <div
+              <Box
                 className={classes.paper}
                 style={{ display: "flex", justifyContent: "center" }}
               >
-                <div
+                <Box
+                  width={230}
+                  height={230}
                   style={{
                     border: "1px solid black",
-                    width: "230px",
-                    height: "230px",
                     borderRadius: "50%",
                     display: "flex",
                     justifyContent: "center",
@@ -97,19 +189,19 @@ function App() {
                   }}
                 >
                   項目二
-                </div>
-              </div>
+                </Box>
+              </Box>
             </Grid>
             <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
-              <div
+              <Box
                 className={classes.paper}
                 style={{ display: "flex", justifyContent: "center" }}
               >
-                <div
+                <Box
+                  width={230}
+                  height={230}
                   style={{
                     border: "1px solid black",
-                    width: "230px",
-                    height: "230px",
                     borderRadius: "50%",
                     display: "flex",
                     justifyContent: "center",
@@ -117,19 +209,19 @@ function App() {
                   }}
                 >
                   項目三
-                </div>
-              </div>
+                </Box>
+              </Box>
             </Grid>
             <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
-              <div
+              <Box
                 className={classes.paper}
                 style={{ display: "flex", justifyContent: "center" }}
               >
-                <div
+                <Box
+                  width={230}
+                  height={230}
                   style={{
                     border: "1px solid black",
-                    width: "230px",
-                    height: "230px",
                     borderRadius: "50%",
                     display: "flex",
                     justifyContent: "center",
@@ -137,36 +229,138 @@ function App() {
                   }}
                 >
                   項目四
-                </div>
-              </div>
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+        <Box bgcolor={"#EEEEEE"}>
+          <Container
+            maxWidth="lg"
+            style={{
+              paddingRight: "80px",
+              paddingLeft: "80px",
+            }}
+          >
+            <Grid container spacing={3}>
+              <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                <TableContainer
+                  component={Paper}
+                  style={{ border: "1px solid black" }}
+                >
+                  <Table
+                    className={classes.table}
+                    aria-label="customized table"
+                  >
+                    <TableHead>
+                      <TableRow>
+                        <StyledTableCell>項目</StyledTableCell>
+                        <StyledTableCell align="right"></StyledTableCell>
+                        <StyledTableCell align="right"></StyledTableCell>
+                        <StyledTableCell align="right"></StyledTableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {rows.map((row) => (
+                        <StyledTableRow key={row.name}>
+                          <StyledTableCell
+                            component="th"
+                            scope="row"
+                            style={{ width: 30 }}
+                          >
+                            {row.name}
+                          </StyledTableCell>
+                          <StyledTableCell
+                            align="center"
+                            style={{ width: 10, paddingRight: 50 }}
+                          >
+                            {row.calories}
+                          </StyledTableCell>
+                          <StyledTableCell align="left" style={{ width: 800 }}>
+                            {row.fat}
+                          </StyledTableCell>
+                          <StyledTableCell align="center">
+                            {row.carbs}
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Grid>
+            </Grid>
+          </Container>
+        </Box>
+        <Container
+          maxWidth="lg"
+          style={{
+            paddingRight: "80px",
+            paddingLeft: "80px",
+            marginTop: "85px",
+            marginBottom: "85px",
+          }}
+        >
+          <Grid container spacing={3}>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <Box display="flex" className={classes.paper}>
+                <Box
+                  width={1}
+                  style={{
+                    paddingRight: "37px",
+                    paddingLeft: "37px",
+                    boxSizing: "border-box",
+                  }}
+                >
+                  <Box
+                    display="flex"
+                    flexWarp="warp"
+                    style={{ backgroundColor: "blue" }}
+                  >
+                    <Box style={{ paddingLeft: "37px", paddingRight: "37px" }}>
+                      123
+                    </Box>
+                    <Box style={{ paddingLeft: "37px", paddingRight: "37px" }}>
+                      123
+                    </Box>
+                    <Box style={{ paddingLeft: "37px", paddingRight: "37px" }}>
+                      123
+                    </Box>
+                    <Box style={{ paddingLeft: "37px", paddingRight: "37px" }}>
+                      123
+                    </Box>
+                    <Box style={{ paddingLeft: "37px", paddingRight: "37px" }}>
+                      123
+                    </Box>
+                    <Box style={{ paddingLeft: "37px", paddingRight: "37px" }}>
+                      123
+                    </Box>
+                  </Box>
+                </Box>
+                <Box width={350} bgcolor="red">
+                  JPG
+                </Box>
+              </Box>
             </Grid>
           </Grid>
         </Container>
         <Container
-          maxWidth="lg"
-          style={{ paddingRight: "80px", paddingLeft: "80px" }}
+          maxWidth="xl"
+          style={{
+            paddingRight: "0px",
+            paddingLeft: "0px",
+          }}
         >
-          <Grid container spacing={3}>
-            <Grid item xl={12} lg={12} md={12} sm={12}>
-              <div className={classes.paper}>項目</div>
-            </Grid>
-          </Grid>
+          <Box
+            width={1}
+            bgcolor="#EEEEEE"
+            display="flex"
+            justifyContent="center"
+            style={{ padding: "40px 0px" }}
+          >
+            Footer
+          </Box>
         </Container>
-        <Container
-          maxWidth="lg"
-          style={{ paddingRight: "80px", paddingLeft: "80px" }}
-        >
-          <Grid container spacing={3}>
-            <Grid item xl={9} lg={9} md={9} sm={9}>
-              <div className={classes.paper}>JPG</div>
-            </Grid>
-            <Grid item xl={3} lg={3} md={3} sm={3}>
-              <div className={classes.paper}>標題</div>
-            </Grid>
-          </Grid>
-        </Container>
-        <div style={{ width: "100%", backgroundColor: "pink" }}>footer</div>
-      </div>
+      </Box>
     </MuiThemeProvider>
   );
 }
