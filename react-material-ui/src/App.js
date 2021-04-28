@@ -1,4 +1,5 @@
 import logo from "./logo.svg";
+import { useEffect, useState } from "react";
 import "./App.css";
 import {
   withStyles,
@@ -18,6 +19,13 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import shadows from "@material-ui/core/styles/shadows";
 import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Typography from "@material-ui/core/Typography";
+import axios from "axios";
 
 const theme = createMuiTheme({
   breakpoints: {
@@ -27,9 +35,9 @@ const theme = createMuiTheme({
     // theme breakpoint functions `up`, `down`, and `between` to create
     // media queries for these breakpoints
     values: {
-      xs: 768,
-      sm: 991,
-      md: 1280,
+      xs: 576,
+      sm: 768,
+      md: 991,
       lg: 1440,
       xl: 1920,
     },
@@ -82,10 +90,64 @@ const useStyles = makeStyles((theme) => ({
   imgContainer: {
     color: "white",
   },
+  card: {
+    maxWidth: 220,
+    maxHeight: 220,
+    marginTop: 30,
+    marginBottom: 30,
+  },
+  articleContainer: {
+    border: "1px solid black",
+  },
+  articleWarp: {
+    width: "50%",
+    paddingTop: 40,
+    paddingBottom: 40,
+    paddingRight: 40,
+    paddingLeft: 40,
+    textAlign: "left",
+    backgroundColor: "Lime",
+    // boxSizing: "border-box",
+    [theme.breakpoints.down("sm")]: {
+      backgroundColor: "purple",
+      // width: 250,
+    },
+  },
+  articleTitle: {
+    fontSize: 50,
+    marginBottom: 20,
+  },
 }));
 
 function App() {
+  const [data, setData] = useState([]);
+  const getData = () => {
+    axios
+      .post("http://multipleproduct.wacocolife.com/api/gallery/showClient/1")
+      .then((res) => {
+        console.log(res);
+        const items = res.data.items;
+        const _data = items.map((item) => ({
+          id: item.id,
+          title: item.title,
+          url: item.url,
+          alt: item.alt,
+          note: item.note,
+        }));
+        setData(_data);
+      });
+  };
+
   const classes = useStyles();
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  useEffect(() => {
+    console.log("data", data);
+  }, [data]);
+
   return (
     <MuiThemeProvider theme={theme}>
       <Box className={classes.root}>
@@ -152,7 +214,7 @@ function App() {
         </Container>
         <Container maxWidth="lg">
           <Grid container spacing={3} style={{ marginBottom: "60px" }}>
-            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+            <Grid item xl={3} lg={3} md={4} sm={6} xs={12}>
               <Box
                 className={classes.paper}
                 style={{ display: "flex", justifyContent: "center" }}
@@ -172,7 +234,7 @@ function App() {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+            <Grid item xl={3} lg={3} md={4} sm={6} xs={12}>
               <Box
                 className={classes.paper}
                 style={{ display: "flex", justifyContent: "center" }}
@@ -192,7 +254,7 @@ function App() {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+            <Grid item xl={3} lg={3} md={4} sm={6} xs={12}>
               <Box
                 className={classes.paper}
                 style={{ display: "flex", justifyContent: "center" }}
@@ -212,7 +274,7 @@ function App() {
                 </Box>
               </Box>
             </Grid>
-            <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+            <Grid item xl={3} lg={3} md={4} sm={6} xs={12}>
               <Box
                 className={classes.paper}
                 style={{ display: "flex", justifyContent: "center" }}
@@ -293,53 +355,92 @@ function App() {
         </Box>
         <Container
           maxWidth="lg"
-          style={{
-            paddingRight: "80px",
-            paddingLeft: "80px",
-            marginTop: "85px",
-            marginBottom: "85px",
-          }}
+          style={
+            {
+              // paddingRight: "80px",
+              // paddingLeft: "80px",
+              // marginTop: "55px",
+              // marginBottom: "55px",
+            }
+          }
         >
           <Grid container spacing={3}>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-              <Box display="flex" className={classes.paper}>
+              {/* <Box
+                display="flex"
+                justifyContent="space-between"
+                className={classes.paper}
+                style={{ backgroundColor: "green" }}
+              >
                 <Box
-                  width={1}
                   style={{
-                    paddingRight: "37px",
-                    paddingLeft: "37px",
-                    boxSizing: "border-box",
+                    paddingRight: "33px",
+                    paddingLeft: "33px",
+                    backgroundColor: "orange",
                   }}
                 >
                   <Box
                     display="flex"
-                    flexWarp="warp"
-                    style={{ backgroundColor: "blue" }}
+                    flexWrap="wrap"
+                    flexDirection="row"
+                    style={{ backgroundColor: "yellow" }}
                   >
-                    <Box style={{ paddingLeft: "37px", paddingRight: "37px" }}>
-                      123
-                    </Box>
-                    <Box style={{ paddingLeft: "37px", paddingRight: "37px" }}>
-                      123
-                    </Box>
-                    <Box style={{ paddingLeft: "37px", paddingRight: "37px" }}>
-                      123
-                    </Box>
-                    <Box style={{ paddingLeft: "37px", paddingRight: "37px" }}>
-                      123
-                    </Box>
-                    <Box style={{ paddingLeft: "37px", paddingRight: "37px" }}>
-                      123
-                    </Box>
-                    <Box style={{ paddingLeft: "37px", paddingRight: "37px" }}>
-                      123
-                    </Box>
+                    {data.map((dataItem) => (
+                      <Box
+                        style={{
+                          paddingLeft: "33px",
+                          paddingRight: "33px",
+                          boxSizing: "border-box",
+                        }}
+                      >
+                        123 */}
+              {/* <Card className={classes.card}>
+                          <CardActionArea>
+                            <CardMedia
+                              component="img"
+                              alt="Contemplative Reptile"
+                              // height="140"
+                              image={dataItem.url}
+                              title="Contemplative Reptile"
+                            />
+                            <CardContent>
+                              <Typography
+                                gutterBottom
+                                variant="h5"
+                                component="h2"
+                              >
+                                {dataItem.title}
+                              </Typography>
+                              <Typography
+                                variant="body2"
+                                color="textSecondary"
+                                component="p"
+                              >
+                                Lizards are a widespread group of squamate
+                                reptiles, with over 6,000 species, ranging
+                                across all continents except Antarctica
+                              </Typography>
+                            </CardContent>
+                          </CardActionArea>
+                        </Card> */}
+              {/* </Box>
+                    ))}
                   </Box>
                 </Box>
-                <Box width={350} bgcolor="red">
-                  JPG
-                </Box>
-              </Box>
+                <Box className={classes.articleContainer} bgcolor="red"> */}
+              {/* <Box className={classes.articleWarp}>
+                    <Typography className={classes.articleTitle}>
+                      標題
+                    </Typography>
+                    <Typography>
+                      介紹介紹介紹介紹介紹介紹介紹介紹
+                      介紹介紹介紹介紹介紹介紹介紹介紹
+                      介紹介紹介紹介紹介紹介紹介紹介紹
+                      介紹介紹介紹介紹介紹介紹介紹介紹 介紹介紹介紹介紹介紹
+                    </Typography>
+                  </Box> */}
+              {/* </Box>
+              </Box> */}
             </Grid>
           </Grid>
         </Container>
