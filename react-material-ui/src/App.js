@@ -92,12 +92,25 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     maxWidth: 220,
-    maxHeight: 220,
+    // maxHeight: 220,
     marginTop: 30,
     marginBottom: 30,
+    marginLeft: 27,
+    marginRight: 27,
+  },
+  introductionContainer: {
+    paddingRight: "50px",
+    paddingLeft: "110px",
+    ["@media (max-width:1440px)"]: {
+      paddingRight: "25px",
+      paddingLeft: "25px",
+    },
+  },
+  introductionWarp: {
+    backgroundColor: "pink",
   },
   articleContainer: {
-    border: "1px solid black",
+    backgroundColor: "pink",
   },
   articleWarp: {
     width: "50%",
@@ -107,15 +120,26 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 40,
     textAlign: "left",
     backgroundColor: "Lime",
-    // boxSizing: "border-box",
     [theme.breakpoints.down("sm")]: {
       backgroundColor: "purple",
-      // width: 250,
     },
   },
   articleTitle: {
     fontSize: 50,
     marginBottom: 20,
+  },
+  tableContainer: {
+    marginBottom: "48px",
+    paddingRight: "80px",
+    paddingLeft: "80px",
+    ["@media (max-width:1440px)"]: {
+      paddingRight: "25px",
+      paddingLeft: "25px",
+    },
+  },
+  footer: {
+    marginTop: "48px",
+    padding: "40px 0px",
   },
 }));
 
@@ -297,13 +321,7 @@ function App() {
           </Grid>
         </Container>
         <Box bgcolor={"#EEEEEE"}>
-          <Container
-            maxWidth="lg"
-            style={{
-              paddingRight: "80px",
-              paddingLeft: "80px",
-            }}
-          >
+          <Container maxWidth="lg" className={classes.tableContainer}>
             <Grid container spacing={3}>
               <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
                 <TableContainer
@@ -328,20 +346,20 @@ function App() {
                           <StyledTableCell
                             component="th"
                             scope="row"
-                            style={{ width: 30 }}
+                            style={{ width: 58 }}
                           >
                             {row.name}
                           </StyledTableCell>
-                          <StyledTableCell
-                            align="center"
-                            style={{ width: 10, paddingRight: 50 }}
-                          >
+                          <StyledTableCell align="left" style={{ width: 133 }}>
                             {row.calories}
                           </StyledTableCell>
-                          <StyledTableCell align="left" style={{ width: 800 }}>
+                          <StyledTableCell
+                            align="left"
+                            style={{ paddingRight: 300 }}
+                          >
                             {row.fat}
                           </StyledTableCell>
-                          <StyledTableCell align="center">
+                          <StyledTableCell align="center" style={{ flex: 1 }}>
                             {row.carbs}
                           </StyledTableCell>
                         </StyledTableRow>
@@ -353,94 +371,77 @@ function App() {
             </Grid>
           </Container>
         </Box>
-        <Container
-          maxWidth="lg"
-          style={
-            {
-              // paddingRight: "80px",
-              // paddingLeft: "80px",
-              // marginTop: "55px",
-              // marginBottom: "55px",
-            }
-          }
-        >
+        <Container maxWidth="lg" className={classes.introductionContainer}>
           <Grid container spacing={3}>
-            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-              {/* <Box
+            <Grid item xl={8} lg={8} md={7} sm={12} xs={12}>
+              <Box
+                className={classes.introductionWarp}
                 display="flex"
-                justifyContent="space-between"
-                className={classes.paper}
-                style={{ backgroundColor: "green" }}
+                justifyContent="center"
+                flexWrap="wrap"
+              >
+                {data.map((dataItem) => (
+                  <Card className={classes.card}>
+                    <CardActionArea>
+                      <CardMedia
+                        component="img"
+                        alt="Contemplative Reptile"
+                        image="/static/images/cards/contemplative-reptile.jpg"
+                        title="Contemplative Reptile"
+                      />
+                      <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {dataItem.title}
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                        >
+                          Lizards are a widespread group of squamate reptiles,
+                          with over 6,000 species, ranging across all continents
+                          except Antarctica
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                      <Button size="small" color="primary">
+                        Share
+                      </Button>
+                      <Button size="small" color="primary">
+                        Learn More
+                      </Button>
+                    </CardActions>
+                  </Card>
+                ))}
+              </Box>
+            </Grid>
+            <Grid item xl={4} lg={4} md={5} sm={12} xs={12}>
+              <Box
+                className={classes.articleContainer}
+                style={{ display: "flex", justifyContent: "center" }}
               >
                 <Box
                   style={{
-                    paddingRight: "33px",
-                    paddingLeft: "33px",
-                    backgroundColor: "orange",
+                    border: "1px solid black",
+                    paddingLeft: 31,
+                    paddingRight: 31,
+                    paddingTop: 38,
+                    paddingBottom: 38,
+                    textAlign: "left",
+                    width: 350,
+                    boxSizing: "border-box",
                   }}
                 >
-                  <Box
-                    display="flex"
-                    flexWrap="wrap"
-                    flexDirection="row"
-                    style={{ backgroundColor: "yellow" }}
-                  >
-                    {data.map((dataItem) => (
-                      <Box
-                        style={{
-                          paddingLeft: "33px",
-                          paddingRight: "33px",
-                          boxSizing: "border-box",
-                        }}
-                      >
-                        123 */}
-              {/* <Card className={classes.card}>
-                          <CardActionArea>
-                            <CardMedia
-                              component="img"
-                              alt="Contemplative Reptile"
-                              // height="140"
-                              image={dataItem.url}
-                              title="Contemplative Reptile"
-                            />
-                            <CardContent>
-                              <Typography
-                                gutterBottom
-                                variant="h5"
-                                component="h2"
-                              >
-                                {dataItem.title}
-                              </Typography>
-                              <Typography
-                                variant="body2"
-                                color="textSecondary"
-                                component="p"
-                              >
-                                Lizards are a widespread group of squamate
-                                reptiles, with over 6,000 species, ranging
-                                across all continents except Antarctica
-                              </Typography>
-                            </CardContent>
-                          </CardActionArea>
-                        </Card> */}
-              {/* </Box>
-                    ))}
-                  </Box>
+                  <Typography>標題</Typography>
+                  <Typography>
+                    介紹介紹介紹介紹介紹介紹介紹介紹
+                    介紹介紹介紹介紹介紹介紹介紹介紹
+                    介紹介紹介紹介紹介紹介紹介紹介紹
+                    介紹介紹介紹介紹介紹介紹介紹介紹 介紹介紹介紹介紹介紹
+                  </Typography>
                 </Box>
-                <Box className={classes.articleContainer} bgcolor="red"> */}
-              {/* <Box className={classes.articleWarp}>
-                    <Typography className={classes.articleTitle}>
-                      標題
-                    </Typography>
-                    <Typography>
-                      介紹介紹介紹介紹介紹介紹介紹介紹
-                      介紹介紹介紹介紹介紹介紹介紹介紹
-                      介紹介紹介紹介紹介紹介紹介紹介紹
-                      介紹介紹介紹介紹介紹介紹介紹介紹 介紹介紹介紹介紹介紹
-                    </Typography>
-                  </Box> */}
-              {/* </Box>
-              </Box> */}
+              </Box>
             </Grid>
           </Grid>
         </Container>
@@ -452,11 +453,11 @@ function App() {
           }}
         >
           <Box
+            className={classes.footer}
             width={1}
             bgcolor="#EEEEEE"
             display="flex"
             justifyContent="center"
-            style={{ padding: "40px 0px" }}
           >
             Footer
           </Box>
