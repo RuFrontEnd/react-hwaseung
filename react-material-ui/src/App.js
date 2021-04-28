@@ -355,11 +355,11 @@ function App() {
                           </StyledTableCell>
                           <StyledTableCell
                             align="left"
-                            style={{ paddingRight: 300 }}
+                            style={{ width: 100, paddingRight: 800 }}
                           >
                             {row.fat}
                           </StyledTableCell>
-                          <StyledTableCell align="center" style={{ flex: 1 }}>
+                          <StyledTableCell align="center">
                             {row.carbs}
                           </StyledTableCell>
                         </StyledTableRow>
@@ -404,14 +404,6 @@ function App() {
                         </Typography>
                       </CardContent>
                     </CardActionArea>
-                    <CardActions>
-                      <Button size="small" color="primary">
-                        Share
-                      </Button>
-                      <Button size="small" color="primary">
-                        Learn More
-                      </Button>
-                    </CardActions>
                   </Card>
                 ))}
               </Box>
