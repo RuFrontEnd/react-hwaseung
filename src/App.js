@@ -207,6 +207,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 20,
   },
   footer: {
+    fontSize: "18px",
     marginTop: "48px",
     padding: "40px 0px",
   },
