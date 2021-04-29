@@ -524,6 +524,7 @@ function App() {
                         alt="Contemplative Reptile"
                         image={dataItem.url}
                         title="Contemplative Reptile"
+                        alt={dataItem.alt}
                       />
                       <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
