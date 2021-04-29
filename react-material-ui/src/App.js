@@ -82,6 +82,7 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     fontSize: "80px",
+    cursor: "pointer",
   },
   navBarWarp: {
     marginBottom: 60,
@@ -101,11 +102,13 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   avatar: {
+    cursor: "pointer",
     width: 30,
     height: 30,
     marginRight: 12,
   },
   logIn: {
+    cursor: "pointer",
     padding: "5px 15px",
     backgroundColor: "black",
     color: "white",
