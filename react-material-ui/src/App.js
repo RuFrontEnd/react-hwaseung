@@ -222,7 +222,6 @@ function App() {
     axios
       .post("http://multipleproduct.wacocolife.com/api/gallery/showClient/1")
       .then((res) => {
-        console.log(res);
         const items = res.data.items;
         const _data = items.map((item) => ({
           id: item.id,
@@ -238,10 +237,6 @@ function App() {
   useEffect(() => {
     getData();
   }, []);
-
-  useEffect(() => {
-    console.log("data", data);
-  }, [data]);
 
   return (
     <MuiThemeProvider theme={theme}>
@@ -283,7 +278,6 @@ function App() {
                     setNavigationHoverStatusA(true);
                   }}
                   onMouseLeave={() => {
-                    console.log("a");
                     setNavigationHoverStatusA(false);
                   }}
                 >
