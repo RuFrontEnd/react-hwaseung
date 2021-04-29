@@ -72,7 +72,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    backgroundColor: "pink",
     padding: theme.spacing(0),
     textAlign: "center",
     color: theme.palette.text.secondary,
@@ -118,11 +117,24 @@ const useStyles = makeStyles((theme) => ({
   navigation: {
     padding: "0px 20px",
     borderLeft: "1px solid black",
+    cursor: "pointer",
   },
   navigationLast: {
+    position: "relative",
     padding: "0px 20px",
     borderLeft: "1px solid black",
     borderRight: "1px solid black",
+    cursor: "pointer",
+  },
+  navigationLastSelector: {
+    color: "white",
+    position: "absolute",
+    top: 45,
+    left: 0,
+    padding: "10px 28px",
+  },
+  navigationLastOption: {
+    margin: "10px 0px",
   },
   hamburgerContainer: {
     display: "none",
@@ -136,6 +148,8 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "60px",
   },
   circleItem: {
+    color: "black",
+    fontSize: "24px",
     border: "1px solid black",
     borderRadius: "50%",
   },
@@ -176,14 +190,14 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: "25px",
     },
   },
-  introductionWarp: {
-    backgroundColor: "pink",
-  },
   articleContainer: {
-    backgroundColor: "pink",
     height: "100%",
     padding: "25px 25px",
     boxSizing: "border-box",
+    ["@media (max-width:1280px)"]: {
+      paddingRight: "10px",
+      paddingLeft: "10px",
+    },
   },
   articleTitle: {
     fontSize: 50,
@@ -198,6 +212,12 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   const [data, setData] = useState([]);
+  const [isShowSelection, setIsShowSelection] = useState(false);
+  const [navigationHoverStatusA, setNavigationHoverStatusA] = useState(false);
+  const [navigationHoverStatusB, setNavigationHoverStatusB] = useState(false);
+  const [navigationHoverStatusC, setNavigationHoverStatusC] = useState(false);
+  const [navigationHoverStatusD, setNavigationHoverStatusD] = useState(false);
+  const [navigationHoverStatusE, setNavigationHoverStatusE] = useState(false);
   const getData = () => {
     axios
       .post("http://multipleproduct.wacocolife.com/api/gallery/showClient/1")
@@ -207,9 +227,9 @@ function App() {
         const _data = items.map((item) => ({
           id: item.id,
           title: item.title,
-          url: item.url,
+          url: `https://multipleproduct.wacocolife.com${item.url}`,
           alt: item.alt,
-          note: item.note,
+          note: { __html: item.note },
         }));
         setData(_data);
       });
@@ -252,11 +272,102 @@ function App() {
                 <Box className={classes.logIn}>登入</Box>
               </Box>
               <Box className={classes.navigationContainer} display="flex">
-                <Box className={classes.navigation}>首頁</Box>
-                <Box className={classes.navigation}>關於我們</Box>
-                <Box className={classes.navigation}>最新消息</Box>
-                <Box className={classes.navigation}>服務項目</Box>
-                <Box className={classes.navigationLast}>Q&A活動</Box>
+                <Box
+                  className={classes.navigation}
+                  style={
+                    navigationHoverStatusA
+                      ? { color: "#00B6C4" }
+                      : { color: "black" }
+                  }
+                  onMouseMove={() => {
+                    setNavigationHoverStatusA(true);
+                  }}
+                  onMouseLeave={() => {
+                    console.log("a");
+                    setNavigationHoverStatusA(false);
+                  }}
+                >
+                  首頁
+                </Box>
+                <Box
+                  className={classes.navigation}
+                  style={
+                    navigationHoverStatusB
+                      ? { color: "#00B6C4" }
+                      : { color: "black" }
+                  }
+                  onMouseMove={() => {
+                    setNavigationHoverStatusB(true);
+                  }}
+                  onMouseLeave={() => {
+                    setNavigationHoverStatusB(false);
+                  }}
+                >
+                  關於我們
+                </Box>
+                <Box
+                  className={classes.navigation}
+                  style={
+                    navigationHoverStatusC
+                      ? { color: "#00B6C4" }
+                      : { color: "black" }
+                  }
+                  onMouseMove={() => {
+                    setNavigationHoverStatusC(true);
+                  }}
+                  onMouseLeave={() => {
+                    setNavigationHoverStatusC(false);
+                  }}
+                >
+                  最新消息
+                </Box>
+                <Box
+                  className={classes.navigation}
+                  style={
+                    navigationHoverStatusD
+                      ? { color: "#00B6C4" }
+                      : { color: "black" }
+                  }
+                  onMouseMove={() => {
+                    setNavigationHoverStatusD(true);
+                  }}
+                  onMouseLeave={() => {
+                    setNavigationHoverStatusD(false);
+                  }}
+                >
+                  服務項目
+                </Box>
+                <Box
+                  className={classes.navigationLast}
+                  style={
+                    navigationHoverStatusE
+                      ? { color: "#00B6C4" }
+                      : { color: "black" }
+                  }
+                  onMouseMove={() => {
+                    setNavigationHoverStatusE(true);
+                    setIsShowSelection(true);
+                  }}
+                  onMouseLeave={() => {
+                    setNavigationHoverStatusE(false);
+                    setIsShowSelection(false);
+                  }}
+                >
+                  Q&A活動
+                  {isShowSelection && (
+                    <Box
+                      bgcolor={"black"}
+                      className={classes.navigationLastSelector}
+                    >
+                      <Typography className={classes.navigationLastOption}>
+                        問題一
+                      </Typography>
+                      <Typography className={classes.navigationLastOption}>
+                        問題二
+                      </Typography>
+                    </Box>
+                  )}
+                </Box>
               </Box>
             </Box>
             <Box className={classes.hamburgerContainer}>
@@ -413,7 +524,7 @@ function App() {
                       <CardMedia
                         component="img"
                         alt="Contemplative Reptile"
-                        image="/static/images/cards/contemplative-reptile.jpg"
+                        image={dataItem.url}
                         title="Contemplative Reptile"
                       />
                       <CardContent>
@@ -425,9 +536,7 @@ function App() {
                           color="textSecondary"
                           component="p"
                         >
-                          Lizards are a widespread group of squamate reptiles,
-                          with over 6,000 species, ranging across all continents
-                          except Antarctica
+                          <span dangerouslySetInnerHTML={dataItem.note} />
                         </Typography>
                       </CardContent>
                     </CardActionArea>
